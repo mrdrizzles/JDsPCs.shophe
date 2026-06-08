@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JDsPCs | Checkout</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+border-bottom:1px solid #222;
+}
+
+.logo{
+font-size:2rem;
+font-weight:700;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:40px;
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:40px;
+}
+
+.checkout-form{
+background:#111;
+border:1px solid #222;
+padding:30px;
+}
+
+.checkout-form h2{
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:20px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:8px;
+}
+
+.input-group input,
+.input-group textarea{
+width:100%;
+padding:14px;
+background:#000;
+border:1px solid #333;
+color:white;
+}
+
+.summary{
+background:#111;
+border:1px solid #222;
+padding:30px;
+height:fit-content;
+}
+
+.summary h2{
+margin-bottom:20px;
+}
+
+.order-item{
+margin-bottom:12px;
+color:#bbb;
+}
+
+.total{
+font-size:2rem;
+font-weight:bold;
+margin-top:20px;
+}
+
+.pay-btn{
+width:100%;
+padding:18px;
+margin-top:25px;
+background:white;
+color:black;
+border:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+.pay-btn:hover{
+background:#ddd;
+}
+
+@media(max-width:900px){
+.container{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">JDsPCs</div>
+
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="shop.html">Shop</a>
+<a href="cart.html">Cart</a>
+</div>
+
+</nav>
+
+<div class="container">
+
+<div class="checkout-form">
+
+<h2>Shipping Information</h2>
+
+<div class="input-group">
+<label>Full Name</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email">
+</div>
+
+<div class="input-group">
+<label>Phone Number</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Address</label>
+<textarea rows="4"></textarea>
+</div>
+
+</div>
+
+<div class="summary">
+
+<h2>Order Summary</h2>
+
+<div id="orderItems"></div>
+
+<div id="totalPrice" class="total">
+$0
+</div>
+
+<button class="pay-btn" onclick="placeOrder()">
+CONTINUE TO PAYMENT
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function loadOrder(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let html = "";
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.price * item.quantity;
+
+html += `
+<div class="order-item">
+${item.name} x ${item.quantity}
+</div>
+`;
+
+});
+
+document.getElementById("orderItems").innerHTML = html;
+
+document.getElementById("totalPrice").innerHTML =
+"$" + total.toLocaleString();
+
+}
+
+function placeOrder(){
+
+alert("Stripe checkout will be connected here.");
+
+}
+
+loadOrder();
+
+</script>
+
+</body>
+</html>
