@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JDsPCs | Shopping Cart</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.cart-page{
+max-width:1500px;
+margin:auto;
+padding:40px;
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+.cart-list{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.cart-card{
+background:#111;
+border:1px solid #222;
+border-radius:16px;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:.3s;
+}
+
+.cart-card:hover{
+transform:translateY(-3px);
+border-color:#444;
+}
+
+.product-info{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.product-info img{
+width:140px;
+height:140px;
+object-fit:cover;
+border-radius:12px;
+border:1px solid #333;
+}
+
+.product-text h2{
+margin-bottom:10px;
+}
+
+.product-text p{
+color:#999;
+}
+
+.controls{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.controls button{
+width:40px;
+height:40px;
+padding:0;
+}
+
+.quantity{
+font-size:20px;
+font-weight:bold;
+min-width:30px;
+text-align:center;
+}
+
+.remove-btn{
+background:#222;
+color:white;
+padding:10px 15px;
+border:1px solid #444;
+}
+
+.summary-card{
+background:#111;
+border:1px solid #222;
+border-radius:16px;
+padding:30px;
+position:sticky;
+top:100px;
+height:fit-content;
+}
+
+.summary-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+}
+
+.total{
+font-size:2rem;
+font-weight:bold;
+margin-top:20px;
+}
+
+.checkout-btn{
+width:100%;
+display:block;
+text-align:center;
+margin-top:20px;
+text-decoration:none;
+}
+
+.empty-cart{
+background:#111;
+border:1px solid #222;
+border-radius:16px;
+padding:80px;
+text-align:center;
+}
+
+.empty-cart h2{
+font-size:3rem;
+margin-bottom:15px;
+}
+
+@media(max-width:900px){
+
+.cart-page{
+grid-template-columns:1fr;
+padding:20px;
+}
+
+.cart-card{
+flex-direction:column;
+gap:20px;
+text-align:center;
+}
+
+.product-info{
+flex-direction:column;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="announcement">
+🚚 FREE SHIPPING AUSTRALIA-WIDE ON ORDERS OVER $2000
+</div>
+
+<nav>
+
+<div class="logo">
+JDsPCs
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="shop.html">Shop</a>
+
+<a href="cart.html">
+Cart (<span id="cartCount">0</span>)
+</a>
+
+<a href="admin.html">Admin</a>
+
+</div>
+
+</nav>
+
+<section class="hero" style="min-height:30vh;padding:60px 20px;">
+
+<div class="hero-text" style="width:100%;text-align:center;">
+
+<h1>Your Cart</h1>
+
+<p>
+Review your gaming PC order before checkout.
+</p>
+
+</div>
+
+</section>
+
+<div class="cart-page">
+
+<div class="cart-list" id="cartItems">
+
+</div>
+
+<div class="summary-card">
+
+<h2>Order Summary</h2>
+
+<hr style="border-color:#222;margin:20px 0;">
+
+<div class="summary-row">
+<span>Subtotal</span>
+<span id="subtotal">$0</span>
+</div>
+
+<div class="summary-row">
+<span>Shipping</span>
+<span>FREE</span>
+</div>
+
+<div class="summary-row">
+<span>Tax</span>
+<span>Included</span>
+</div>
+
+<hr style="border-color:#222;margin:20px 0;">
+
+<div class="total" id="totalPrice">
+$0
+</div>
+
+<a href="checkout.html" class="primary-btn checkout-btn">
+PROCEED TO CHECKOUT
+</a>
+
+<button
+class="clear-btn"
+style="width:100%;margin-top:15px;"
+onclick="clearCart()"
+>
+CLEAR CART
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function updateCartCount(){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+let count = 0;
+
+cart.forEach(item=>{
+count += item.quantity;
+});
+
+document.getElementById("cartCount").innerText =
+count;
+
+}
+
+function loadCart(){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+let container =
+document.getElementById("cartItems");
+
+if(cart.length === 0){
+
+container.innerHTML = `
+
+<div class="empty-cart">
+
+<h2>🛒</h2>
+
+<h3>Your Cart Is Empty</h3>
+
+<p style="color:#999;margin:20px 0;">
+Looks like you haven't added any PCs yet.
+</p>
+
+<a href="shop.html" class="primary-btn">
+SHOP NOW
+</a>
+
+</div>
+
+`;
+
+document.getElementById("subtotal").innerText="$0";
+document.getElementById("totalPrice").innerText="$0";
+
+return;
+
+}
+
+let html = "";
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += item.price * item.quantity;
+
+html += `
+
+<div class="cart-card">
+
+<div class="product-info">
+
+<img
+src="${item.image || 'images/pc1.jpg'}"
+alt="${item.name}"
+>
+
+<div class="product-text">
+
+<h2>${item.name}</h2>
+
+<p>
+$${item.price.toLocaleString()}
+</p>
+
+</div>
+
+</div>
+
+<div class="controls">
+
+<button onclick="decreaseQuantity(${index})">
+-
+</button>
+
+<div class="quantity">
+${item.quantity}
+</div>
+
+<button onclick="increaseQuantity(${index})">
++
+<button
+class="remove-btn"
+onclick="removeItem(${index})"
+title="Remove Item"
+>
+✕
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML = html;
+
+document.getElementById("subtotal").innerText =
+"$" + total.toLocaleString();
+
+document.getElementById("totalPrice").innerText =
+"$" + total.toLocaleString();
+
+updateCartCount();
+
+}
+
+function increaseQuantity(index){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+cart[index].quantity++;
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+loadCart();
+
+}
+
+function decreaseQuantity(index){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+if(cart[index].quantity > 1){
+
+cart[index].quantity--;
+
+}else{
+
+cart.splice(index,1);
+
+}
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+loadCart();
+
+}
+
+function removeItem(index){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+cart.splice(index,1);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+loadCart();
+
+}
+
+function clearCart(){
+
+if(confirm("Clear your cart?")){
+
+localStorage.removeItem("cart");
+
+loadCart();
+
+}
+
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>

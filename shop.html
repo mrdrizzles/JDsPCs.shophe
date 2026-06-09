@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JDsPCs | Shop Gaming PCs</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Announcement Bar -->
+
+<div class="announcement">
+🚚 FREE SHIPPING AUSTRALIA-WIDE ON ORDERS OVER $2000
+</div>
+
+<!-- Navbar -->
+
+<nav>
+
+<div class="logo">
+JDsPCs
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="shop.html">Shop</a>
+
+<a href="cart.html">
+Cart (<span id="cartCount">0</span>)
+</a>
+
+<a href="admin.html">Admin</a>
+
+</div>
+
+</nav>
+
+<!-- Shop Hero -->
+
+<section class="hero" style="min-height:40vh;">
+
+<div class="hero-text" style="text-align:center;width:100%;">
+
+<h1>SHOP GAMING PCS</h1>
+
+<p>
+Premium gaming computers built for performance.
+</p>
+
+</div>
+
+</section>
+
+<!-- Search & Sort -->
+
+<div class="shop-controls">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search PCs..."
+onkeyup="filterProducts()"
+>
+
+<select id="sortSelect" onchange="sortProducts()">
+
+<option value="default">Sort By</option>
+
+<option value="low-high">
+Price: Low → High
+</option>
+
+<option value="high-low">
+Price: High → Low
+</option>
+
+<option value="name">
+Name A-Z
+</option>
+
+</select>
+
+</div>
+
+<!-- Products -->
+
+<div class="shop-grid">
+
+<!-- PC 1 -->
+
+<div class="pc-card" data-price="1499">
+
+<img src="images/pc1.jpg">
+
+<div class="pc-info">
+
+<span class="badge">
+🔥 BEST SELLER
+</span>
+
+<h2>Starter Gaming PC</h2>
+
+<div class="spec">CPU: Ryzen 5 7600</div>
+<div class="spec">GPU: RTX 4060</div>
+<div class="spec">RAM: 32GB DDR5</div>
+<div class="spec">Storage: 1TB NVMe SSD</div>
+
+<div class="price">$1499</div>
+
+<br>
+
+<button onclick="addToCart(
+'Starter Gaming PC',
+1499
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Starter Gaming PC',
+1499
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<!-- PC 2 -->
+
+<div class="pc-card" data-price="1999">
+
+<img src="images/pc2.jpg">
+
+<div class="pc-info">
+
+<span class="badge">
+⭐ MOST POPULAR
+</span>
+
+<h2>Streamer PC</h2>
+
+<div class="spec">CPU: Ryzen 7 7800X3D</div>
+<div class="spec">GPU: RTX 4070 Super</div>
+<div class="spec">RAM: 32GB DDR5</div>
+<div class="spec">Storage: 2TB NVMe SSD</div>
+
+<div class="price">$1999</div>
+
+<br>
+
+<button onclick="addToCart(
+'Streamer PC',
+1999
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Streamer PC',
+1999
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<!-- PC 3 -->
+
+<div class="pc-card" data-price="2499">
+
+<img src="images/pc3.jpg">
+
+<div class="pc-info">
+
+<span class="badge">
+💎 PREMIUM
+</span>
+
+<h2>Creator PC</h2>
+
+<div class="spec">CPU: Ryzen 9 9900X</div>
+<div class="spec">GPU: RTX 4080 Super</div>
+<div class="spec">RAM: 64GB DDR5</div>
+<div class="spec">Storage: 2TB NVMe SSD</div>
+
+<div class="price">$2499</div>
+
+<br>
+
+<button onclick="addToCart(
+'Creator PC',
+2499
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Creator PC',
+2499
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<!-- PC 4 -->
+
+<div class="pc-card" data-price="2999">
+
+<img src="images/pc4.jpg">
+
+<div class="pc-info">
+
+<h2>Competitive FPS PC</h2>
+
+<div class="spec">CPU: 9800X3D</div>
+<div class="spec">GPU: RTX 5070 Ti</div>
+<div class="spec">RAM: 32GB DDR5</div>
+<div class="spec">Storage: 2TB SSD</div>
+
+<div class="price">$2999</div>
+
+<br>
+
+<button onclick="addToCart(
+'Competitive FPS PC',
+2999
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Competitive FPS PC',
+2999
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<!-- PC 5 -->
+
+<div class="pc-card" data-price="3999">
+
+<img src="images/pc5.jpg">
+
+<div class="pc-info">
+
+<h2>Enthusiast Gaming PC</h2>
+
+<div class="spec">CPU: Ryzen 9 9950X</div>
+<div class="spec">GPU: RTX 5080</div>
+<div class="spec">RAM: 64GB DDR5</div>
+<div class="spec">Storage: 4TB SSD</div>
+
+<div class="price">$3999</div>
+
+<br>
+
+<button onclick="addToCart(
+'Enthusiast Gaming PC',
+3999
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Enthusiast Gaming PC',
+3999
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<!-- PC 6 -->
+
+<div class="pc-card" data-price="4999">
+
+<img src="images/pc6.jpg">
+
+<div class="pc-info">
+
+<span class="badge">
+👑 FLAGSHIP
+</span>
+
+<h2>Ultimate Gaming PC</h2>
+
+<div class="spec">CPU: Ryzen 9 9950X3D</div>
+<div class="spec">GPU: RTX 5090</div>
+<div class="spec">RAM: 64GB DDR5</div>
+<div class="spec">Storage: 4TB SSD</div>
+
+<div class="price">$4999</div>
+
+<br>
+
+<button onclick="addToCart(
+'Ultimate Gaming PC',
+4999
+)">
+Add To Cart
+</button>
+
+<button onclick="buyNow(
+'Ultimate Gaming PC',
+4999
+)">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function addToCart(name, price){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+let existing =
+cart.find(item => item.name === name);
+
+if(existing){
+
+existing.quantity++;
+
+}else{
+
+cart.push({
+name:name,
+price:price,
+quantity:1
+});
+
+}
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+updateCartCount();
+
+}
+
+function buyNow(name, price){
+
+addToCart(name, price);
+
+window.location.href = "cart.html";
+
+}
+
+function updateCartCount(){
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+let count = 0;
+
+cart.forEach(item=>{
+count += item.quantity;
+});
+
+document.getElementById(
+"cartCount"
+).innerText = count;
+
+}
+
+function filterProducts(){
+
+let search =
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
+
+let cards =
+document.querySelectorAll(
+".pc-card"
+);
+
+cards.forEach(card=>{
+
+let title =
+card.querySelector("h2")
+.innerText.toLowerCase();
+
+card.style.display =
+title.includes(search)
+? "block"
+: "none";
+
+});
+
+}
+
+function sortProducts(){
+
+let grid =
+document.querySelector(".shop-grid");
+
+let cards =
+Array.from(
+document.querySelectorAll(".pc-card")
+);
+
+let value =
+document.getElementById(
+"sortSelect"
+).value;
+
+if(value==="low-high"){
+cards.sort((a,b)=>
+a.dataset.price - b.dataset.price
+);
+}
+
+if(value==="high-low"){
+cards.sort((a,b)=>
+b.dataset.price - a.dataset.price
+);
+}
+
+if(value==="name"){
+cards.sort((a,b)=>
+a.querySelector("h2").innerText.localeCompare(
+b.querySelector("h2").innerText
+));
+}
+
+cards.forEach(card=>{
+grid.appendChild(card);
+});
+
+}
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
